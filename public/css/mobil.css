@@ -1,0 +1,163 @@
+
+@import url("https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
+/* Normal desktop :1200px. */
+/* Normal desktop :992px. */
+/* Tablet desktop :768px. */
+/* small mobile :320px. */
+/* Large Mobile :480px. */
+/* 1. Theme default css */
+@import url("https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
+/* line 5, ../../Arafath/CL/December/233. Startup/HTML/scss/theme-default.scss */
+body {
+  font-family: "Muli", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  height: 100%;
+
+}
+.openSidebar {
+  display: block;
+  color:black;
+}
+
+.ara-btn
+{
+  display: inline-block;
+  margin-bottom:4px;
+  width:80px;
+}
+.sehir-input
+{
+width:400px;
+display: inline-block;
+
+}
+.ilce-input
+{
+width:150px;
+display: inline-block;
+
+}
+
+ div.mynavbar
+{
+  width: 100%;
+  display: inline-flex;
+  justify-content:space-between;
+  height:80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  background-color: rgba(0,0,200,0.5);
+  /*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);*/
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+
+}
+
+div.mynavbar1
+{
+  width: 100%;
+  display: inline-flex;
+  justify-content:space-between;
+  height:50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color:white;
+}
+div.left-mynavbar ul{
+  display: inline-block;
+  padding: 0;
+}
+div.left-mynavbar li{
+  display: inline-block;
+  margin-right: 20px;
+}
+ul ,li{
+  list-style: none;
+}
+.left-mynavbar a
+{
+  color:white;
+
+}
+
+.left-mynavbar a:hover
+{
+  color:white;
+  text-decoration: underline;
+
+}
+
+.left-mynavbar i
+{
+  color:white;
+
+}
+
+
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: grey; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.top-img
+{
+  background-image: url('../logo1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width:100%;
+  height: 600px;
+  padding-top: 70px;
+
+}
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+.arama-kutusu-dekstop
+{
+  display: none !important;
+
+}
+.arama-kutusu-mobil
+{
+  display: block;
+  width:100%;
+}
+.ara2
+{
+  display: none;
+}
