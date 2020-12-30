@@ -12,6 +12,8 @@
     cursor: pointer;
     z-index: 9999;
     position: absolute;
+    overflow-y:auto;
+    max-height: 400px;
     /*top: 32px;
     left: 0px;
     */
@@ -29,43 +31,45 @@
 }
 
 .angucomplete-row {
-    padding:2px 5px;
+    font-weight: bold;
     color: #000000;
     clear: both;
-    border-bottom: 1px solid #ccc;
+    padding:0;
 }
-.angucomplete-row:last-child
-{
-    border-bottom: none;
-}
+
 
 .angucomplete-selected-row {
-    background-color: #3c6382;
-    color: #ffffff;
+    background-color:#ddd;
 }
-
 .angucomplete-image-holder {
-    padding-top: 2px;
     float: left;
     margin-right: 10px;
     margin-left: 5px;
 }
-
+/*
+.angucomplete-row:nth-child(even) {
+    background-color: #f2f2f2;
+}
+*/
 .angucomplete-image {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    border-color: #ececec;
-    border-style: solid;
-    border-width: 1px;
+   height: 20px;
+   width: 20px;
+   background-size: contain;
+   background-position: center;
+   border: 0px;
+   border-radius: 50%;
+   background-image:url('http://localhost:8000/location.png');
+   margin-bottom: 5px;
+
 }
 
 .angucomplete-image-default {
     /* Add your own default image here
      background-image: url('/assets/default.png');
     */
+
     background-position: center;
-    background-size: contain;
+    background-size:contain;
     height: 34px;
     width: 34px;
 }

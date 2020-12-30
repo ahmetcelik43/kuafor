@@ -1,37 +1,87 @@
 
 
-    
-    main.factory('Data', function Data($http) {
 
-        return{
-            get: function get(url) {
-
-                 return $http.get(url);
-                 },
-        }
-    });
-    main.controller('home' ,function(Data,$scope)
+    main.controller('home' ,function(Data,$scope,$filter,$routeParams)
 {
+    var allData=[];
     $scope.illerDesktop=[];
-    var appUrl = angular.element('#main').scope().appUrl;
+    $scope.ilcelerDesktop=[];
+    //$scope.appUrl = angular.element('#main').scope().appUrl;
     
     $scope.secIlDesktop = function (il) {
         
-        if (!angular.isUndefined(il)) {
+        if (!angular.isUndefined(il)) 
             $scope.il = il.originalObject;
-        }
+        
+    }
+    $scope.secIlceDesktop = function (ilce) {
+        
+        if (!angular.isUndefined(ilce)) 
+            $scope.ilce = ilce.originalObject;
+        
     }
     $scope.sehirDesktopInit = function ()
     {
-       Data.get(appUrl + 'ilveilce.json').success(function (response) {
-        var data = [...new Set(response.map(item => item.il))]; 
+       Data.get(baseUrl + '/ilveilce.json').then(function (response) {
+       // response.header("Access-Control-Allow-Origin", "*");
+       allData = response.data;
+        var data = [...new Set(response.data.map(item => item.il))]; 
         data.map((item)=>{
-            return $scope.illerDesktop.push({"il":item});
+            return $scope.illerDesktop.push({"il":item });
         })
-        console.log($scope.illerDesktop )
       
    });
     }
+   $scope.$watch('il',function(Value){
+    
+       if(Value){
+
+       $('.inputIcon > .fa-remove').fadeIn('fast');
+       $('.inputIcon > .fa-search').fadeOut('fast');
+
+       var filter = $filter('filter')($scope.illerDesktop, { "il": Value.il  }, true);  
+    if(filter.length > 0)
+       {
+        $scope.ilcelerDesktop.splice(0,$scope.ilcelerDesktop.length);
+      allData.map(function(item){
+        if(item.il == Value.il) 
+        $scope.ilcelerDesktop.push({"ilce":item.ilce});
+      });
+       }
+    }
+    else if(!Value){
+        $('.inputIcon > .fa-remove').fadeOut('fast');
+        $('.inputIcon > .fa-search').fadeIn('fast');
+    }   
+    }); 
+    
+    $scope.inputChanged=function()
+    {
+        
+        if(this.searchStr){
+            $('.inputIcon > .fa-remove').fadeIn('fast');
+            $('.inputIcon > .fa-search').fadeOut('fast');
+     
+         }
+         else{
+             $('.inputIcon > .fa-remove').fadeOut('fast');
+             $('.inputIcon > .fa-search').fadeIn('fast');
+         }        
+    }
     
     $scope.sehirDesktopInit();
+    $scope.inputTemizle=function(param)
+    {
+        switch (param) {
+            case 'ildesktop':
+                $scope.$broadcast('angucomplete-alt:clearInput', 'ilDesktop');
+                $('.inputIcon > .fa-remove').fadeOut('fast');
+                $('.inputIcon > .fa-search').fadeIn('fast');
+                break;
+        
+            default:
+                break;
+        }
+    }    
+    if($routeParams.loginModal == 1) $('.loginModal').modal('show');
 });

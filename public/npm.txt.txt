@@ -1,0 +1,10 @@
+
+node -v
+npm --v
+npm init --y -> package.json created.
+npm i gulp-cli -g
+npm i gulp --save-dev
+gulp.js anadizine oluþtur.
+gulp --help
+bower init ->bower.json oluþtur.
+bower rm packagename --save-dev

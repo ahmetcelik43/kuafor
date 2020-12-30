@@ -1,3 +1,51 @@
 php -S localhost:8000 -t public/
 php artisan cache:clear
 php artisan view:cache
+lang-angular :https://blog.novanet.no/creating-multilingual-support-using-angularjs/
+websocket :https://github.com/wilk/ng-websocket
+body dışında herhangi biryere basıldığı zaman:
+ https://stackoverflow.com/questions/35328016/click-on-body-except-on-specific-div
+flaticon:https://www.flaticon.com/free-icon/placeholder_684908?related_item_id=684908&term=location
+ $('body > :not(#mySidenav)').css('opacity','0.2);
+https://www.guru99.com/angularjs-routes.html
+ngrok laravel : ngrok http 8000 -host-header=localhost -host-header=rewrite
+laravel model and migraiton oluşturma.php artisan make:model User --migration
+php artisan migrate:refresh
+angular-bar :https://github.com/chieffancypants/angular-loading-bar
+ sidebar ekran karartma:http://jsfiddle.net/QVCTW/1/
+
+
+ input içine icon ekleme:
+ -----------------------
+ HTML:
+ <div class="search">
+  <span class="fa fa-search"></span>
+  <input placeholder="Search term">
+</div>
+CSS:
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 250px;
+  height: 32px;
+
+  background: #fcfcfc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+}
+
+.search input { text-indent: 32px;}
+.search .fa-search { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.search .fa-search {left: 230px;}
+----------------------------------
+Kernel.php : midddleare tutulduğu yerdir.

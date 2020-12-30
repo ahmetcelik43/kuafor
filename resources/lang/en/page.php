@@ -7,7 +7,11 @@ return [
     'gonder' => 'Submit',
     'girisYap' => 'Login',
     'kayitOl' => 'Register',
-    'faceGiris' => 'Login With Facebook',
-'sifre'=>'Password'
+    'googleGiris' => 'Login With Google',
+    'sifre'=>'Password',
+     'contact'=>'Contact',
+     'advertise'=> 'Advertise',
+     'browseAdvert'=>'Browse Advert',
+     'postAdvertFree'=> 'Post a Free Advert'
 ];
 ?>

@@ -7,8 +7,12 @@ return [
     'gonder' => 'Gönder',
     'girisYap' => 'Giriş Yap',
     'kayitOl' => 'Kayıt Ol',
-    'faceGiris' => 'Facebook İle Giriş Yap',
-    'sifre' => 'Şifre'
+    'googleGiris' => 'Google Giriş',
+    'sifre' => 'Şifre',
+    'contact'=>'İletişim',
+    'browseAdvert'=>'İlnalara Gözat',
+    'postAdvertFree'=> 'Ücretsiz İlan Ver'
+
 
 ];
 ?>

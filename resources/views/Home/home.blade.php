@@ -1,15 +1,12 @@
-@extends('landing')
-@section('title', 'Ana Sayfa - Kuaför.tk')
-@section('heads')
+
 <script src="{{ URL::asset('js/servis/home.js') }}"></script>
 
-@endsection
-@section('main')
+
 <div ng-controller="home">
 <div class="row">
 
     <div class="top-img text-center">
-      <h3 style="color:white">Türkiye' nin kuaför bulma sitesi</h3>
+      <h4 style="color:white">Kuaför Randevu Sistemine Hoşgeldiniz !</h4>
       <br>
       <div class="arama-kutusu-mobil" >
 
@@ -59,7 +56,10 @@
       <div class="arama-kutusu-desktop" id="arama-kutusu-desktop">
 
  <div class="sehir2">
-     <div class="autocomplete">
+  <div class="search">
+    <i class="fa fa-search iconColor"></i>
+    <i class="fa fa-remove" style="color:#b30000" ng-click="inputTemizle('ildesktop')"></i>
+    
       <div angucomplete-alt id="ilDesktop"
       maxlength="50"
       pause="300"
@@ -68,40 +68,43 @@
       local-data="illerDesktop"
       search-fields="il"
       title-field="il"
-      minlength="1" 
+      imagefield="image"
+      minlength="0" 
       match-class="highlight"                  
       input-name="ilDesktop"
-      input-class="form-control"
-      focus-out="focusOutIlDesktop()"                                         
+      input-class="form-control input inputColor"
+      input-changed="inputChanged"
       text-no-results="İl Bulunamadı !">
 </div>
+</div>
+    
 
-   <!--<input id="myInput" autocomplete="off" class="form-control" type="text" name="myCountry" placeholder="Şehir"/>
-   --> 
   </div>
 
    </div>
    <div class="ilce2">
-   <div class="autocomplete">
- <!--<input id="ilce" type="text" autocomplete="off" class="form-control ilce"  style="margin-left:3px" placeholder="İlçe"/>
- -->
- <!--
+    <div class="search">
+      <i class="fa fa-search"></i>
+      
+ 
  <div angucomplete-alt 
  maxlength="50"
  pause="300"
- initial-value="ilceDesktop"
- selected-object="seciliIlceDesktop"
+ initial-value="ilce"
+ selected-object="secIlceDesktop"
  local-data="ilcelerDesktop"
- search-fields="ilceDesktop"
- title-field="ilceDesktop"
+ search-fields="ilce"
+ title-field="ilce"
  minlength="0"                        
  input-name="ilceDesktop"
- input-class="form-control"                                         
+ input-class="form-control input inputColor"                                         
  text-no-results="İlçe Bulunamadı !">
-</div> -->
+</div>
 </div>
    </div>
-   <button type="button" style="margin-left:7px"   class="btn btn-success ara-btn2"><i class="fa fa-search" style="font-size:25px"></i></button>
+   <button type="button" style="margin-left:7px"   class="btn btn-success ara-btn2"><i class="fa fa-check" style="font-size:25px"></i></button>
+ <br><br>
+   <button type="button" style="display:block;margin:0 auto;"   class="btn btn-primary">{{trans('page.postAdvertFree')}}</button>
 
     </div>
    </div>
@@ -159,4 +162,3 @@
   </div>
 </div>
 </div>
-@endsection
