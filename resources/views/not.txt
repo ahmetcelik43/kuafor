@@ -1,5 +1,4 @@
-php -S localhost:8000 -t public/
-php artisan cache:clear
+﻿php -S localhost:8000 -t public/
 php artisan view:cache
 lang-angular :https://blog.novanet.no/creating-multilingual-support-using-angularjs/
 websocket :https://github.com/wilk/ng-websocket
@@ -15,6 +14,7 @@ angular-bar :https://github.com/chieffancypants/angular-loading-bar
  sidebar ekran karartma:http://jsfiddle.net/QVCTW/1/
 
 
+laravel public security :https://www.bymega.com/laravelde-adres-satirindaki-public-satirini-kaldirmak/
  input içine icon ekleme:
  -----------------------
  HTML:
@@ -49,3 +49,41 @@ CSS:
 .search .fa-search {left: 230px;}
 ----------------------------------
 Kernel.php : midddleare tutulduğu yerdir.
+
+git add .
+git commit -m "mesaj"
+git push -u origin ahmet
+
+composer memory limit error için proje dizininde ;
+php -d memory_limit=-1 "C:\ProgramData\ComposerSetup\bin\composer.phar" update
+
+laravel move to  hosting:
+index.php de :
+require __DIR__.'/vendor/autoload.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
+ 
+config/app.php ye kopyala:
+'key' => env('APP_KEY',base64_decode('IpFHoEq/e45Agyjye1zoM4QEUlTSlKJSrYeMGy05rdI=')),
+
+http://kuafor.atwebpages.com
+awarspace:
+preview.awardspace.net
+3702961_a
+Ahmet.4336
+21
+
+composer dump-autoload
+
+db seeding: 
+php artisan db:seed --class=classname 
+
+angular-route: https://www.guru99.com/angularjs-routes.html
+
+php artisan view:clear&php artisan config:clear&php artisan route:clear&php artisan cache:clear&php -S localhost:9000 -t public/
+
+
+laravel queue:https://oguzcandemircan.com/laravel-queue-nedir-laravel-nasil-yapilir
+
+encodeURIComponent(url);
+
+https://sacsirlari.com/kuaforler

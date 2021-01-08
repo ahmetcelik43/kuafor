@@ -1,0 +1,112 @@
+<div class="modal loginModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header girisModalHeader">
+          <h5 class="modal-title">Üyelik işlemleri</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body girisModalBody">
+          <div class="tabs">
+            <div class="tab-header">
+              <div class="active" id="loginHeaderModal">
+                 Login
+              </div>
+              <div id="registerHeaderModal">
+                 Register
+              </div>
+            </div>
+            <div class="tab-indicator"></div>
+            <div class="tab-body">
+              <div class="active" id="loginModalBody">
+                <p style="display:inline;">Üye Değilmisin  </p>    <a style="display:inline;cursor:pointer;font-weight:bold"  ng-click="girisRedirectModal()">Üye Ol</a>
+               <br><br>
+
+               <form id="girisForm" ng-submit="doLogin()" autocomplete="false">
+                 <div class="form-group">
+
+ <div class="inputIcon"> 
+   <i class="fas fa-at" style="left:400px"> </i>
+ <input placeholder="Email Yazınız" autocomplete="off" type="email" name="email" ng-model="login.email" class="form-control"  aria-describedby="emailHelp">
+ </div>
+</div>
+<div class="form-group">
+ <div class="inputIcon"> 
+  <i class="fas fa-key" style="left:400px"></i>
+ <input placeholder="Şifre Yazınız" autocomplete="off" type="password" name="sifre" ng-model="login.password" class="form-control" id="sifre" aria-describedby="emailHelp">
+</div>
+</div>
+<div class="form-check">
+<label class="form-check-label">
+  <input type="checkbox" ng-model="login.isRemember" class="form-check-input" value="">Beni Hatırla
+</label>
+</div>
+
+
+<br>
+<button type="submit" style="width:100%;" ng-disabled="!login.email || !login.password" class="btn btn-secondary">
+<i class="fa fa-send-o"></i>  Giriş Yap
+</button>
+<button class="google-giris" g-login type="button"> <i class="fab fa-google"></i>  Google İle Giriş Yap</button>
+
+
+               </form>
+              </div>
+              <div id="registerModalBody">
+                <p style="display:inline;">Üye Misin  </p><a style="display:inline;cursor:pointer;font-weight:bold"  ng-click="manualRedirectToLogin()">Giriş Yap</a>
+                <br><br>
+ 
+                <form ng-submit="doRegister()" autocomplete="false">
+                  <div class="form-group">
+ 
+  <div class="inputIcon"> 
+    <i class="fas fa-at" style="left:400px"> </i>
+  <input placeholder="Email" autocomplete="off" type="email" name="email" ng-model="register.email" class="form-control"  aria-describedby="emailHelp">
+  </div>
+ </div>
+ <div class="form-group">
+  <div class="inputIcon"> 
+   <i class="fas fa-key" style="left:400px"></i>
+  <input placeholder="İsim" autocomplete="off" type="text" name="name" ng-model="register.ad" class="form-control">
+ </div>
+ </div>
+ <div class="form-group">
+  <div class="inputIcon"> 
+   <i class="fas fa-key" style="left:400px"></i>
+  <input placeholder="Şifre" autocomplete="off" type="password" name="sifre" ng-model="register.password" class="form-control">
+ </div>
+ </div>
+ <div class="form-group">
+  <label for="">Seçiniz</label>
+      <select class="form-control" ng-model="register.rolID">
+        <option value="" disabled>Seçiniz</option>
+        <option value="2">Kuaförüm randevu vermek ve müşterilerimi takip etmek istiyorum.</option>
+        <option value="3">Randevu almak istiyorum.</option>
+      </select>
+</div>
+ 
+ 
+ <br>
+ <button type="submit" style="width:100%;" ng-disabled="!register.email || !register.password || !register.ad || !register.rolID" class="btn btn-secondary">
+ <i class="fa fa-send-o"></i>  Kayıt Ol
+ </button>
+
+                </form>
+                
+              </div>
+            
+            </div>
+          
+           
+             
+            
+
+          
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

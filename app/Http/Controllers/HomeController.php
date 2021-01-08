@@ -1,16 +1,27 @@
+
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+
 class HomeController extends Controller
 {
 
-    public function landingPage($loginModal=null)
+    public function home()
+    {
+       // clearstatcache();
+
+       return \File::get(public_path() . '/newTemplate/master.html');
+
+
+
+    }
+    
+   
+    public function googleCallback($user=null)
     {
 
-        return view("landing")->with("loginModal");
+        return view("master");
 
 
 

@@ -1,0 +1,200 @@
+section{
+	padding: 20px 0;
+}
+
+#accordion-style-1 h1,
+#accordion-style-1 a{
+    color:#a40cf0;
+   /* color:#007b5e;*/
+}
+#accordion-style-1 textarea,input{
+    font-weight: bold;
+}
+#accordion-style-1 ul 
+{
+    list-style: none;
+}
+#accordion-style-1  .fa-angle-right
+{
+    font-size:20px;
+}
+
+#accordion-style-1 .btn-link {
+    font-weight: 400;
+    display: inline-block;
+    color:#a40cf0;
+    background-color: transparent;
+    text-decoration: none !important;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 25px;
+     width: 80%; 
+}
+
+#accordion-style-1 .card-body {
+    /*border-top: 2px solid #007b5e;*/
+    border-top: 2px solid #a40cf0;
+}
+
+#accordion-style-1 .card-header .btn.collapsed .fa.main{
+	display:none;
+}
+#accordion-style-1 .card-header{
+  min-height: 40px;
+}
+#accordion-style-1 .card-header .btn .fa.main{
+    /*background: #007b5e;*/
+    background: #a40cf0;
+    padding: 13px 11px;
+    color: #ffffff;
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: -1px;
+    top: 10px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+	display:block;
+}
+.borderRed
+{
+    border-top: 1px solid red;
+    border-left: 1px solid red;
+    border-right: 1px solid red;
+}
+.borderRedAll
+{
+    border: 1px solid red !important;
+}
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: center;
+    margin-top:-3px;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    margin-bottom: 8px;
+    margin-left: 6px;
+  }
+  
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 8px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+
+  table th , td ,small{
+    font-size: small;
+    color:black;
+  }
+  .morButton
+  {
+    background-color: #a40cf0;color:white;
+  }
+  .morButtonAnimated {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  .small{
+    color:black;
+  }
+  .left-genel
+  {
+      display: inline-flex;
+      width:40%;
+      text-align:center;
+      margin-right:5%;
+     padding-left: 5%; 
+  }
+  .right-genel
+  {
+    display: inline-flex;
+    width:40%;
+    text-align:center;
+    align-content: flex-start;
+    float: right;
+    flex-direction: column;
+  }
+  .bilgilendirme
+  {
+    position: absolute;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+     height: 50px;
+     background-color: #c3e3cc;
+     padding: 10px 10px 10px 10px;
+  }
+  .left-mynavbar a:hover{
+    color:red !important;
+  }

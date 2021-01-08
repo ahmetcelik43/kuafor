@@ -1,5 +1,6 @@
 .angucomplete-holder {
     position: relative;
+    height: 30px;
 }
 
 .angucomplete-dropdown {

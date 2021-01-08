@@ -1,0 +1,96 @@
+<div ng-controller = "profil" id="profil">
+    <div class="container bg-gray" id="accordion-style-1">
+        <div class="container">
+            <section>
+                <div class="row">
+                    <div class="col-12 ">
+                        <h4 class="text-green mb-4 text-center" style="display:block">Profil</h4>
+                           
+                       </div>
+                    <div class="col-md-10 mx-auto col-sm-12">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-angle-right mr-3"></i> Genel Bilgiler  
+                                    </button>
+                                 
+
+                                  </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body" style="border: none;">
+                                    <div class="left-genel">
+                                <div class="form-group" style="text-align: center;margin:0 auto;">
+                                    <img ng-if="getUser().profileImage==null" style="width: 100px;height: 100px;" src="/user.png" alt="{{getUser().ad}}">
+                                    <img ng-if="getUser().profileImage!=null" src="" alt="">
+                                    <strong style="display: block;margin-top: 5px;">{{getUser().ad}}</strong>
+                                     <strong style="display: block;margin-top: 5px;">{{getUser().rol}}</strong>
+                                     <strong style="display: block;margin-top: 5px;">{{getUser().email}}</strong>
+
+                                </div>  
+                            </div>                                
+                                <div class="right-genel">
+                                    <a ng-click="linkUret()" style="display: block ">Profil Linki Üret</a>
+                                    <a id="copy"  data-clipboard-action="copy" data-clipboard-target="#url" style="display: block;"><i  class="far fa-copy"></i></a> 
+                                    <small id="url">{{profilUrl}}</small>
+                                </div>
+                             </div>
+                            </div>
+                    </div>
+                    <br>      
+                        <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-angle-right mr-3"></i> Profil Resmi Değiştir 
+                                    </button>
+                                    <button ng-class="isAnimateButton ? 'animate__animated animate__repeat-2 animate__heartBeat' : ''" style="float: right;display: inline;"
+                                     ng-click="yukle()" ng-model="file" ng-disabled="!isAddedFile" class="btn morButton">Yükle</button>
+
+                                  </h5>
+                                    </div>
+        
+                                    <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="">Profil Resimi  <small class="small">  ({{getUser().profileImage==null ? 'Şu An Profil Resminiz Yok': ''}}) </small></label>
+                                            <form action="/file-upload"  class="dropzone" id="my-awesome-dropzone" dropzone="dropzoneConfig">
+                                            </form>
+                                        </div>                                  
+                                        
+                                     </div>
+                                    </div>
+                            </div>
+                            <br>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fa fa-angle-right mr-3"></i> İşletme Resimlerini Buradan Yükleyebilirsin 
+                                </button>
+                                <button ng-class="isAnimateButton ? 'animate__animated animate__repeat-2 animate__heartBeat' : ''" style="float: right;display: inline;"
+                                 ng-click="yukle()" ng-model="file" ng-disabled="!isAddedFile" class="btn morButton">Yükle</button>
+
+                              </h5>
+                                </div>
+    
+                                <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="">İşletme Resimleri</label>
+                                        <form action="/file-upload"  class="dropzone" id="my-awesome-dropzone" dropzone="dropzoneConfig">
+                                        </form>
+                                    </div>                                  
+                                    
+                                 </div>
+                                </div>
+                        </div>
+                    </div>    
+                    </div>
+                
+                </section>
+        </div>
+    </div>
+</div>

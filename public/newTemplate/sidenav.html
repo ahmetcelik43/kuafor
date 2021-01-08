@@ -1,0 +1,22 @@
+
+
+<div id="mySidenav" class="sidenav">
+      
+    <div class="sidenavMenu">
+
+      <a href="javascript:void(0)" id="sidanavgeri" class="dilGeri" ng-click="$ctrl.sidebarDilKapat()"><i class="fa fa-angle-left"></i></a>
+      <a href="javascript:void(0)" class="closebtn" ng-click="sidebarClose()">&times;</a>
+    </div>
+   
+    <a class="sidenavGiris" href="#">Giriş Yap</a>
+    <a class="dilAc" href="#" ng-click="sidebarDilAc()">Dil</a>
+    <a id="sidenavDil" class="dil" ng-click="$ctrl.changeLanguage('tr')">
+      Türkçe
+      <i ng-show="lang=='tr'" style="color:white;float:right;font-size:30px" class="fa fa-check"></i>
+  </a>
+  <a class="dil2" id="sidenavDil2" ng-click="$ctrl.changeLanguage('en')">
+      English
+      <i ng-show="lang=='en'" style="color:white;float:right;font-size:30px" class="fa fa-check"></i>
+  </a> 
+ 
+  </div>

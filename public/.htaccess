@@ -1,10 +1,15 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+  Header set Pragma "no-cache"
+  Header set Expires 0
     </IfModule>
 
     RewriteEngine On
     Header set Access-Control-Allow-Origin "*"
+
+  
 
     # Handle Authorization Header
     #RewriteCond %{HTTP:Authorization} .
@@ -16,7 +21,9 @@
     RewriteRule ^ %1 [L,R=301]
 
     # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.woff|\.woff2|\.jpg|\.svg|\.gif|robots\.txt)$ [NC]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
 </IfModule>

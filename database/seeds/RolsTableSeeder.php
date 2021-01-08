@@ -12,7 +12,11 @@ class RolsTableSeeder extends Seeder
     public function run()
     {
         $rol = new Rol;
-        $rol->rolAdi = "Admin";
+        $rol->rolAdi = "Kuafor";
+        //$rol->timestamps =true;
+        $rol->save();
+        $rol = new Rol;
+        $rol->rolAdi = "Kullanici";
         //$rol->timestamps =true;
         $rol->save();
     }

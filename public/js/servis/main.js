@@ -1,49 +1,276 @@
 
-    var main = angular.module('main', ['angucomplete-alt','ngRoute','ngCookies','pascalprecht.translate','angular-loading-bar','cfp.loadingBar','ngAnimate'], function($interpolateProvider) {
-        $interpolateProvider.startSymbol('<%');
-        $interpolateProvider.endSymbol('%>');
+    var main = angular.module('main', ['angucomplete-alt','socialLogin','dropzone','isteven-multi-select','ui.router','ngCookies','ngCookies','angular-cache','pascalprecht.translate','angular-loading-bar','cfp.loadingBar','ngAnimate'], function($interpolateProvider) {
+        //$interpolateProvider.startSymbol('<%');
+        //$interpolateProvider.endSymbol('%>');
     })
-    //main.constant('baseUrl','http://localhost:8000');
+    main.constant('baseUrl','http://localhost:8000');
+    main.factory('authFactory', function authFactory($http,$state,$location,$cookies,$stateParams) {
+        var userModel={};
+        //let cache=$cacheFactory("sehirveilce");
 
-    main.config(function ($locationProvider,$httpProvider,$translateProvider,$routeProvider,cfpLoadingBarProvider) {
-        $routeProvider  
-        .when('/admin', {
-            templateUrl : 'templates/admin.html',
-            controller  : 'admin'
-        })  
-        .when('/ilanlar', {
-            templateUrl : 'templates/ilanGozat.html',
-            controller  : 'ilanlar'
-        })  
-      
-        .when('/:loginModal?', {
-            templateUrl : 'templates/home.html',
-            controller  : 'home'          
+        userModel.putCache=function(value)
+        { 
+            //$cacheFactory('a').remove("key")
+            if (angular.isUndefined(cache.get("key"))) {
 
-        }).when('/anasayfa/:loginModal?', {
-            templateUrl : 'templates/home.html',
-            controller  : 'home'
+                 cache.put("key",value);
+            }
             
-        })
-        
-       .otherwise({
-           redirectTo:'/'
-       })
+          //let cache = $cacheFactory("b") ? $cacheFactory("b").get("key") : $cacheFactory("b");
+        }
+        userModel.getCache=function()
+        {
+            //$cacheFactory("ilveilce").removeAll();
+           // let cache=$cacheFactory("d");
+            //console.log(cache.put("a","Ahmet"));
 
+            //console.log(cache.get("a"))
+            return cache.get("key");
+            //return $cacheFactory("b") ? $cacheFactory("b").get("key") : $cacheFactory("b");
+                       
+        }
+        userModel.getUser=function()
+        {
+            //return angular.fromJson(CacheFactory.get('user'));
+            return angular.fromJson($cookies.get('user'));
+        }
+        
+        userModel.closeModal= function()
+        {
+            return $('.loginModal').modal('hide');
+        }
+        userModel.doLogin = function(loginData)
+        {
+           return $http({
+
+                header:{
+                    "content-type":"application/json",
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            
+                },
+                url:'/login',
+                method:"POST",
+                data:{
+                    email:loginData.email,
+                    password:loginData.password,
+                    //isRemember:loginData.isRemember
+           
+                },
+            
+            }).then(function(response){
+                toastr.success("Giriş Başarılı");
+                //this.createCache('user');
+                //this.putCache('user' , JSON.stringify(response.data.user));
+                $cookies.put('user',JSON.stringify(response.data.user)); 
+                
+                                
+                 if($stateParams.prevUrl) return $state.href($stateParams.prevUrl);
+                 return $state.go('home');
+            })
+                 .catch(function(){
+                    $('.loginModal').modal('hide');
+                    toastr.error("Giriş Başarısız")
+            });
+            
+        }
+        userModel.doRegister = function(registerData)
+        {
+           return $http({
+                header: {
+                    "content-type":"application/json",
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            
+                },
+                url: '/login/register',
+                method: "POST",
+                data: registerData,
+            
+            }).then(function(response){ 
+                var user = response.data.user[0];
+                toastr.success("Kayıt başarılı");
+
+                if(user.rol == "Kuafor"){
+                    $cookies.put("user",JSON.parse(res.user));
+                    //this.putCache( JSON.stringify(user));
+                    return $state.go('kuaforFormDoldur');    
+                }
+                $state.go('home'); 
+             }).catch(function(){
+                toastr.error("Hata oluştu veya kullanıcı mevcut");
+            });
+        }
+        userModel.getAuthStatus = function()
+        {
+          return  $cookies.get('user') ? true : false ;
+        }
+       
+        userModel.logOut = function()
+        {
+            //CacheFactory.remove('user');
+           $cookies.remove('user');
+           $location.search({});
+           $location.path('/');
+           
+        }
+       
+         return userModel;  
+       
+    });
+    
+    main.factory('Data', function Data($http) {
+        return{
+            get: function get(url) {
+
+                 return $http.get(url);
+                 },
+        
+        
+            post: function post(url,data) {
+
+                 return $http({
+                    header: {
+                        "content-type":"application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                
+                    },
+                    url: url,
+                    method: "POST",
+                    data: data                
+                });
+                 },
+        }
+    });
+    
+    main.run(function ($rootScope,$animate,$transitions,authFactory,$state,$stateParams,$http,$cookies,$location) {
+        $animate.enabled(true);
+        $rootScope.$on('event:social-sign-in-success', function(event, userDetails){
+           console.log(12)
+           $http({
+
+            header:{
+                "content-type":"application/json",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        
+            },
+            url:'/login/google',
+            method:"POST",
+            data:{"email":userDetails.email,"ad":userDetails.name}
+        }).then(function(res){
+            
+            if(res.status==201 && res.data.message == "userexits") {
+                $cookies.put("user",JSON.stringify(res.data.user[0]));
+                $stateParams.prevUrl ? 
+                 $location.path($stateParams.prevUrl.replace('/','')) : $state.go('home');
+
+            }
+            else if(res.data.message == "usernotexits") $state.go('googleCallback',{email:res.data.email,name:res.data.name});//kayıt olması için.
+        }).catch(function(err){toastr.error(err);
+        });
+        });
+
+        $transitions.onBefore({}, function(transition) {
+            
+        const cookie = authFactory.getUser() ? angular.fromJson(authFactory.getUser()) : false ;
+            
+        const kuafor = ["kuaforFormDoldur"].indexOf(transition.to().name) === -1; //yoksa
+ 
+   //var protected =angular.isDefined(transition.to().protected) ? transition.to().protected :false;
+   if(!authFactory.getAuthStatus() &&  transition.to().protected)
+     //$state.go('home',{loginModal:true,prevUrl:transition.from().name});
+     return transition.router.stateService.target('home',{loginModal:true,prevUrl:transition.to().url});
+ 
+    if(angular.isDefined(transition.to().data) && cookie && 
+    transition.to().data != cookie.rol && !kuafor)
+    {      
+        
+            authFactory.logOut(); 
+            return transition.router.stateService.target('home',{loginModal:true , prevUrl:transition.to().url}); 
+        
+       
+    }
+    });
+    /*
+    $transitions.onStart({}, function(transition) {
+      
+
+    });
+    
+    $transitions.onError({ from: 'home' }, function(transition) {
+
+    });
+    */
+    $transitions.onSuccess({}, function() {
+     if($stateParams.loginModal) $('.loginModal').modal('show');
+    });   
+        $rootScope.lang = 'tr';
+        
+    });
+
+   
+    main.config(function ($locationProvider,$httpProvider,$translateProvider,$stateProvider,cfpLoadingBarProvider,socialProvider,CacheFactoryProvider) {
+        
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false,
-            //rewriteLinks:false        
+            rewriteLinks:true        
         });
-      
+        socialProvider.setGoogleKey("521718043852-fke86sg5rinv87u26btm7k664i5ja89r.apps.googleusercontent.com");
+        angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 ,deleteOnExpire: 'aggressive',recycleFreq: 60000});
 
+        
+       var master = {
+        name: 'master',
+        abstract: true,
+       // templateUrl: 'newTemplate/master.html', 
+        controller: 'main',
+    };  
+       var home = {
+        name: 'home',
+        parent: master,
+        url: '/:loginModal?/:prevUrl?/:referrer?',
+        templateUrl: '/newTemplate/home.html', 
+        controller: 'home'
+    };
+    var googleCallback = {
+        name: 'googleCallback',
+        parent: master,
+        url: '/googleCallback/:name?/:email?/:url?',
+        templateUrl: '/newTemplate/googleCallback.html', 
+        controller: 'googleCallback'
+    };
+    var ilanlar = {
+        name: 'ilanlar',
+        parent: master,
+        url: '/ilanlar',
+        templateUrl: '/newTemplate/ilanlar.html',
+        controller:'ilanlar',
+        protected:true
+        };
+        var kuaforFormDoldur = {
+            name: 'kuaforFormDoldur',
+            parent: master,
+            url: '/ilan-yayınla',
+            templateUrl: '/newTemplate/kuaforFormDoldur.html',
+            controller:'formDoldur',
+            protected:true,
+            data: "Kuafor"
+        };
+        var profil = {
+            name: 'profil',
+            parent: master,
+            url: '/profil',
+            templateUrl: '/newTemplate/profil.html',
+            controller:'profil',
+            protected:true
+        };
+       
+      $stateProvider.state(master).state(home).state(ilanlar).state(googleCallback).state(kuaforFormDoldur).state(profil);  
+  
 
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.includeBar = true;
 
-
-        cfpLoadingBarProvider.includeSpinner = false;
-        cfpLoadingBarProvider.includeBar = true;
-
-        cfpLoadingBarProvider.parentSelector = '#loading-bar';
+    cfpLoadingBarProvider.parentSelector = '#loading-bar';
 
       
         
@@ -60,93 +287,43 @@
 
        
     });
-    main.factory('authFactory', function authFactory($http,$cookies) {
-        var userModel={};
-        userModel.doLogin = function(loginData)
-        {
-           return $http({
-
-                header:{
-                    "content-type":"application/json",
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            
-                },
-                url:baseUrl + '/login',
-                method:"POST",
-                data:{
-                    email:loginData.email,
-                    sifre:loginData.sifre,
-                    isRemember:loginData.isRemember
-//                    _token: $('meta[name="csrf-token"]').attr('content')
-            
-                },
-            
-            })
-        }
-        userModel.getAuthStatus = function()
-        {
-          return $cookies.get('laravel_session') && $cookies.get('userRolID') ? true : false ;
-        }
-         return userModel;  
-       
-    });
-    main.run(function ($rootScope,authFactory,$location) {
-        $rootScope.$on('$routeChangeStart',function(event ,next ,current)
-        {
-            //public pages.
-            //console.log(event);
-            var restrictedPage = $.inArray($location.path(), ['/', '/anasayfa','/admin']) === -1;
-
-            if(restrictedPage && !authFactory.getAuthStatus())
-            {
-                    $location.path('/1');
-                
-            }
-            console.log(current);
-        })
-    
-        $rootScope.lang = 'tr';
-        
-    });
- 
-    main.factory('Data', function Data($http) {
-        return{
-            get: function get(url) {
-
-                 return $http.get(url);
-                 },
-        }
-    });
-main.controller('main' ,function($scope,$location,$translate,$rootScope,$cookies,cfpLoadingBar,$timeout,authFactory,$routeParams)
-{
-//    console.log($cookies.get('laravel_session'));
-
-    
-    cfpLoadingBar.start();
-    $timeout(function() {
-        cfpLoadingBar.complete();
-    }, 2000);
-
 
    
-  $scope.doLogin=function()
-  {
-    cfpLoadingBar.start();
+   
+main.controller('main' ,function($scope,$state,$translate,$rootScope,cfpLoadingBar,$timeout,authFactory)
+{
+     cfpLoadingBar.start();
+     $scope.kapat= function()
+     {
+        $('.bilgilendirme').css("display","none");
+        $('.header').css("margin-top","-50px");
+     }
+$scope.$on("$destroy",function() {    
+    $( window ).off( "resize.Viewport" );
+ });
+$scope.linkActive={
+    ilanYayinla:false
+}
 
-      var loginData_ = {
-        email:$scope.login.email,
-        sifre:$scope.login.sifre,
-        isRemember:$scope.login.isRemember
-      }
-      authFactory.doLogin(loginData_)
-      .then(function(response){  $cookies.put('userRolID',response.data.rolID); })
-      .catch(function(error){console.log(error)});
-  
-      $timeout(function() {
-    cfpLoadingBar.complete();
-   }, 2000);
-  
-   }
+    $scope.authCheck = function()
+    {
+        return authFactory.getAuthStatus();
+    }
+    $scope.getUser = function()
+    {
+        return authFactory.getUser();
+    }
+    $scope.logOut = function()
+    {
+        
+       authFactory.logOut();
+       $state.href('/');
+    }
+   
+    $scope.changeLanguage = function (key) {
+        $rootScope.lang = key;
+        $translate.use(key);
+    };
    $scope.sidebarOpen=function()
    {
        $('#mySidenav').css({'width':'200px','z-index':'99999'});
@@ -154,6 +331,7 @@ main.controller('main' ,function($scope,$location,$translate,$rootScope,$cookies
        //$('#mySidenav').css('opacity','1 !important');
       // $('body > :not(#mySidenav)').css('box-shadow','0 0 0 99999px rgba(0, 0, 0, .8)');
       $('#overlay').fadeIn('fast');
+      $('#logo2').fadeIn();
       //$('#mySidenav').css('z-index','99999');
       
     }
@@ -161,16 +339,12 @@ main.controller('main' ,function($scope,$location,$translate,$rootScope,$cookies
     if (!$(event.target).closest('#mySidenav , #sidebarOpen').length && $('#mySidenav').css('width')=="200px") {
         $('#mySidenav').css('width','0px');   
         $('#overlay').fadeOut('fast');
+        $('#logo2').fadeOut();
 
     }
   
   });
-  $scope.sidebarClose = function()
-  {
-    $('#mySidenav').css('width','0');
-    $('#overlay').fadeOut('fast');
-
-  }
+ 
   $scope.sidebarDilAc = function()
   {
       //$('#mySidenav > a:not(.dil):not(.closebtn)').fadeOut('fast');
@@ -183,51 +357,26 @@ main.controller('main' ,function($scope,$location,$translate,$rootScope,$cookies
       $('#sidenavDil2').removeClass('dil2').addClass('dilClicked');
 
   }
-  $scope.sidebarDilKapat= function()
+  $scope.loginModalOpen=function()
   {
-      $('#sidanavgeri').removeClass('dilGeriClicked').addClass('dilGeri')
+      $('.loginModal').modal('show');
+  }
+  $scope.mobilMesajAc=function()
+  {
+    $(".mobil-menu").fadeIn();
+    $('.mobil-menu #mobil-bildirimler,#mobil-dil').fadeOut();
 
-      $('.dilAc').css('display','block');
-      $('.sidenavGiris').css('display','block');
-      
-      $('#sidenavDil').removeClass('dilClicked').addClass('dil');
-      $('#sidenavDil2').removeClass('dilClicked').addClass('dil2');
+       
+    $('.mobil-menu #mobil-messages').fadeIn();
 
-    }
-    $scope.loginModalOpen=function()
-    {
-        $('.loginModal').modal('show');
-    }
-    $scope.girisTabYonlendir=function()
-{
-  $('#login').css('display','block')
-  $('#register').css('display','none')
-  var el = $('div[role="tabs"]').children()
-  el.eq(1).removeClass('addui-Tabs-active')
+  }
+  $scope.mobilMenuClose=function()
+  {
+    $(".mobil-menu").fadeOut();
 
-  el.eq(0).addClass('addui-Tabs-active')
-}
-$scope.kayitTabYonlendir=function()
-{
+  }
 
-    $('#login').css('display','none')
-    $('#register').css('display','block')
-    var el = $('div[role="tabs"]').children()
-    el.eq(0).removeClass('addui-Tabs-active')
-
-    el.eq(1).addClass('addui-Tabs-active')
-
-}
-
-$scope.girisRedirectModal=function()
-{
-    manualRedirectToRegister();
-
-}
-$scope.changeLanguage = function (key) {
-    $rootScope.lang = key;
-    $translate.use(key);
-};
-
-
+    $timeout(function() {
+        cfpLoadingBar.complete();
+    }, 2000);
 });

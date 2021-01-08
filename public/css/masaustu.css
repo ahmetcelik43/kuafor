@@ -7,6 +7,12 @@
 /* 1. Theme default css */
 @import url("https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
 /* line 5, ../../Arafath/CL/December/233. Startup/HTML/scss/theme-default.scss */
+.dropdown-menu-custom
+{
+  text-align:center;
+  border-radius:0;
+  
+}
 .modal-content
 {
   border-radius:0;
@@ -19,7 +25,7 @@
   background-color:#b30000;width:100%;border:none;height:50px;border:none;color:white;margin-top:10px;
 }
 .inputIcon {
-  position: relative;
+  position: relative; 
   font-size: 16px;
 }
 .dilGeriClicked{
@@ -52,10 +58,13 @@
 .dilClicked{
   display:block;
 }
-.inputIcon > i { 
+header{
+  width:100%;
+}
+.inputIcon > i {
   position: absolute;
   top: 8px;
-  font-size:22px;
+  font-size:20px;
   z-index:5;
 }
 
@@ -70,14 +79,19 @@
 }
 
 .inputIcon .fa-remove {left: 270px;}
+html{
+  overflow-x: hidden;
+/*  position: relative;*/
+  height: 100%;
+}
 body {
   font-family: "Muli", sans-serif;
   font-weight: normal;
   font-style: normal;
-  height: 100%;
   overflow-x: hidden;
-
+  min-width: 100%;
 }
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -114,9 +128,8 @@ body {
 }
 div.sehir
 {
-  width:300px;
+  width: 250px;
   display: inline-flex;
-  flex-direction: column;
 }
 div.ilce{
   width:250px;
@@ -152,25 +165,30 @@ div.mynavbar1
   padding-top: 15px;
   padding-bottom: 5px;
   background-color:white;
+  overflow: hidden;
 }
 input.input
 {
+  /* border:1px solid black; */
   font-weight: bold;
+  height: 40px;
+  width: 100%;
 }
  div.mynavbar
 {
   width: 100%;
-
-  height:70px;
+  border-top:1px solid black;
+  height: 50px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 20px;
-  padding-bottom: 5px;
-  background-color: #7e28d4;
-  box-shadow: 2px 2px 2px 2px black;
-  z-index: 6000;
+  padding-top: 10px;
+  background-color:white;
+  box-shadow:2px 2px 2px 2px gray;
 }
-
+ div.mynavbar a
+{
+  color:black
+}
 div.left-mynavbar ul{
   display: inline-block;
   padding: 0;
@@ -214,8 +232,8 @@ ul {
   background-position: center;
   width:100%;
   height: 720px;
-  padding-top: 50px;
-  margin-top: 4px;
+  padding-top: 20px;
+ 
 }
 .tanitim{
   margin-left: auto;
@@ -311,10 +329,13 @@ ul {
 }
 .main{
 
-  height: 100%;width: 100%;
+ height: 100%; 
 
+ width: 100%; 
 
+/* position: absolute; */
 
+/* bottom: 0; */
 }
 .buyutme:hover{
   transform: scale(2);
@@ -324,13 +345,41 @@ ul {
  -ms-transform: scale(2);
  transition: transform 1s;
 }
+
+@media screen and (max-width: 488px) {
+  /*.left-mynavbar  li
+  {
+    color:white;
+    margin-right: 5px !important;
+    width:70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  */
+ 
+  .top-img{
+    width:97%;
+
+  }
+}
+@media screen and (min-width: 489px) {
+ 
+  .left-mynavbar  li
+  {
+  margin-right: 5px;
+  }
+}
 @media screen and (max-width: 900px) {
 
-
+#dilsecDesktop{
+  display: none;
+}
 .mynavbar
 {
   padding-left: 10px;
   padding-right: 10px;
+  
 }
    .sehir2,.ilce2, .ara-btn2
   {
@@ -346,26 +395,32 @@ ul {
     display: block;
     color:black;
   }
-.right-mynavbar1
-{
-  display: none;
-}
+
 .opensidebar
 {
   display: inline-block;
 }
-.left-mynavbar1
-{
-  width: 100%;
+
+
+/*
+.dropdown-menu-custom{
+ min-width:100%;
+ position: fixed !important;
+ top:0 !important;
+ left:0 !important;
+ bottom:0 !important;
+ right:0 !important;
+ transform: none !important;
 }
-.logo
-{
-  float: right;
+*/
+.top-img{
+  height: auto;
+
 }
 }
 
 @media screen and (min-width: 901px) {
-
+ 
   .arama-kutusu-dekstop
   {
     display: block;
@@ -381,11 +436,13 @@ margin-right:auto;
   .opensidebar {
     display: none;
   }
+  .dropdown-menu-custom{
+    width:400px;
+    
 
-  .right-mynavbar1
-  {
-  display: block;
-  }
+   }
+ 
+ 
 }
 /*iletişim*/
 
@@ -402,8 +459,11 @@ margin-right:auto;
 .footer{
   background-color: #4d4d4d;
   height:max-content;
-  padding-top: 20px;
 
+  margin: 0 auto;
+  /* min-height: 50px; */
+  display: flex;
+  /* align-content: flex-end; */
 }
 
 .footer a{
@@ -417,18 +477,32 @@ margin-right:auto;
 display: inline-block;
 margin-right: 30px;
 }
+
 .left-mynavbar li{
   display:inline-block;
-  margin-right: 30px;
+  margin-right: 25px;
+}
+.dropdown
+{
+  position:static;
 }
 .right-mynavbar1 li{
   display:inline-block;
   margin-right: 10px;
 }
-.sticky {
-  position: fixed;
-  top: 0;
+.mobil-alt 
+{
+  display: none;
 }
-.sticky + .main{
-  padding-top: 50px
+.mobil-menu{
+   display: none; 
 }
+.logo-masaustu
+{
+  display: inline-block;
+}
+.logo-mobil
+{
+  display: none !important;
+}
+

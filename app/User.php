@@ -2,22 +2,23 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Notifications\Notifiable;
 //use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
+
 use App\Rol;
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    //use Notifiable;
 
     protected $table = 'kullanicilars';
 
     public function rol(){
         return $this->hasOne(Rol::class, 'id','rolID');
     }
-    protected $fillable = ['email', 'password'];
+    protected $fillable = ['ad', 'email', 'password','rolID'];
 
     /*
     protected $casts = [

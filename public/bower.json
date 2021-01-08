@@ -22,6 +22,12 @@
     "jquery": "^3.5.1",
     "angular-cookies": "^1.8.2",
     "angular-loading-bar": "^0.9.0",
-    "angular-animate": "^1.8.2"
+    "angular-animate": "^1.8.2",
+    "font-awesome": "^5.15.1",
+    "dropzone": "^5.7.2"
+  },
+  "dependencies": {
+    "angularjs-social-login": "^2.6.1",
+    "angular-cache": "^4.6.0"
   }
 }

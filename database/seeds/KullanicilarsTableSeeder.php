@@ -12,10 +12,18 @@ class KullanicilarsTableSeeder extends Seeder
      */
     public function run()
     {
-        $array =array("ad"=>"Ahmet ÇELİK" , "email"=>"ahmet.celik5443@gmail.com",
+        /*$array =array("ad"=>"Ahmet ÇELİK" , "email"=>"ahmet.celik5443@gmail.com",
           "sifre"=>Hash::make("Ahmet"), "rolID"=>1);
           User::create($array);
-
+        
+        /*
+        $array =array("ad"=>"Timur ÇELİK" , "email"=>"zatiye.celik54443@gmail.com",
+        "password"=>Hash::make("Ahmet"), "rolID"=>2);
+        User::create($array);
+        $array =array("ad"=>"Berkay ÇELİK" , "email"=>"ahmet_messi43@hotmail.com",
+        "password"=>Hash::make("Ahmet"), "rolID"=>3);
+        User::create($array);
+        */
         //env
         /*
         $Kullanicilar = new Kullanicilar;

@@ -1,0 +1,42 @@
+<div ng-controller="googleCallback" style="margin-bottom: 200px;">
+    <form style="margin:0 auto; width:350px;margin-top: 30px;" ng-submit="doRegister()" >
+        <div class="form-group">
+          <label for="İsim">İsim</label>
+            <div class="inputIcon"> 
+            <i class="fas fa-at" style="left:320px"> </i>
+            <input placeholder="İsim" ng-value="name" type="text" name="name" ng-model="name" class="form-control"  aria-describedby="emailHelp">
+            </div>
+            </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+
+<div class="inputIcon"> 
+<i class="fas fa-key"  style="left:320px"> </i>
+<input placeholder="Email" ng-value="email" type="email" name="email" ng-model="email" class="form-control"  aria-describedby="emailHelp">
+</div>
+</div>
+<div class="form-group">
+<label>Şifre</label>
+    <div class="inputIcon"> 
+    <i class="fas fa-key" style="left:320px"> </i>
+    <input placeholder="Şifre" type="password" name="password" ng-model="sifre" class="form-control">
+    </div>
+    </div>
+<div class="form-group">
+    <label for="">Seçiniz</label>
+        <select class="form-control" ng-model="rol">
+          <option value="" disabled>Seçiniz</option>
+          <option value="2">Kuaförüm randevu vermek ve müşterilerimi takip etmek istiyorum.</option>
+          <option value="3">Randevu almak istiyorum.</option>
+        </select>
+</div>
+
+
+
+<br>
+<button type="submit" style="width:100%;" ng-disabled="!name ||  !sifre || !email || !rol" class="btn btn-secondary">
+<i class="fa fa-send-o"></i> Kayıt Ol
+</button>
+
+      </form>
+</div>

@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
     //erişime açık
+    /*
     Route::post('register', 'UserController@register');
     Route::post('login', 'UserController@authenticate');
     Route::get('jwtcheck', 'DataController@jwtcheck');
@@ -33,3 +35,5 @@ use Illuminate\Support\Facades\Route;
         Route::get('getAllCategorys', 'DataController@getAllCategorys');
 
     });
+*/
+
