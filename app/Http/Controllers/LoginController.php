@@ -16,6 +16,7 @@ class LoginController extends Controller
 
        $user = User::where("email",$request->input('email'))->get()->map(function ($item) {
         return array(
+            "id"=>$item->id,
             "email"=>$item->email,
             "ad"=>$item->ad,
             "profileImage"=>$item->profilResmiUrl,
@@ -23,15 +24,16 @@ class LoginController extends Controller
             "password"=>$item->password
         );
         });
-      //return response()->json($user[0]);
+        //return response()->json($user[0]);
        if(count($user) > 0  && Hash::check($request->input('password'),$user[0]["password"]))
        {
         //$userDetails['rol']=$user->rol->rolAdi;
         //$userDetails = Auth::user();        
          $user_ = $user[0];
          unset($user_["password"]);
+
          //$user = array_map(function($i) {  return ["email"=>$i->email , ""]} , $user);
-         return response()->json(["message"=>"OK" , "user"=>$user_], 201);
+         return response()->json(["message"=>"OK" , "user"=>$user], 201);
 
 
        }
@@ -50,6 +52,7 @@ class LoginController extends Controller
            
             $user = User::where("id",$userID)->get()->map(function ($item) {
                 return [
+                    "id"=>$item->id,
                     "email"=>$item->email,
                     "ad"=>$item->ad,
                     "profileImage"=>$item->profilResmiUrl,

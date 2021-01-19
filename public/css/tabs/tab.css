@@ -8,7 +8,7 @@
     padding:0;
     
 }
-  .tabs {
+  .tabs  ,.tabs2{
     position:absolute;   
     width:100%;
     height:500px;
@@ -19,7 +19,8 @@
     box-shadow:5px 10px 5px #ccc;
 */  
 }
-  .tabs .tab-header {
+
+  .tabs .tab-header , .tabs2 .tab-header2 {
     height:40px;
     display:flex;
     justify-content:space-between;
@@ -34,14 +35,23 @@
     text-transform:uppercase;
     outline:none;
   }
-  .tabs .tab-header > div > i {
+  .tabs2 .tab-header2 > div {
+    width:calc(100% / 2);
+    text-align:center;
+    color:#888;
+    font-weight:600;
+    cursor:pointer;
+    font-size:14px;
+    outline:none;
+  }
+  .tabs .tab-header > div > i,.tabs2 .tab-header2 > div > i {
     display:block;
     margin-bottom:5px;
   }
-  .tabs .tab-header > div.active {
+  .tabs .tab-header > div.active,.tabs2 .tab-header2 > div.active {
     color:#b30000;
   }
-  .tabs .tab-indicator {
+  .tabs .tab-indicator{
     position:relative;
     width:calc(100% / 2);
     height:3px;
@@ -49,12 +59,20 @@
     border-radius:5px;
     transition:all 100ms ease-in-out;
   }
-  .tabs .tab-body {
+  .tabs2 .tab-indicator2 {
+    position:relative;
+    width:calc(100% / 5);
+    height:3px;
+    background:#7e28d4;
+    border-radius:5px;
+    transition:all 100ms ease-in-out;
+  }
+  .tabs .tab-body , .tabs2 .tab-body2 {
     position:relative;
     height:calc(100% - 60px);
     padding:5px 20px 20px 5px;
   }
-  .tabs .tab-body > div {
+  .tabs .tab-body > div,.tabs2 .tab-body2 > div {
     padding-top:10px;
     position:absolute;
     top:-200%;
@@ -64,7 +82,7 @@
       transform 500ms ease-in-out 0ms;
       width:100%;
   }
-  .tabs .tab-body > div.active {
+  .tabs .tab-body > div.active,.tabs2 .tab-body2 > div.active {
     top:0px;
     opacity:1;
     transform:scale(1);

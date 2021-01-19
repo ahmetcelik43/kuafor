@@ -13,13 +13,31 @@ use Illuminate\Support\Facades\File;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+*//*
+Route::get('add-notification', function() {
+     broadcast(new \App\Events\NotificationEvent);
+     return 'Bildirim Gönderildi.';
+ });
 */
+Route::get('/','MasterController@home');
 
-Route::get('/profilgoster/{url?}/{ad?}','MasterController@profilGoster');
-
+Route::get('/profil-goster/{url?}/{ad?}','MasterController@profilGoster');
+Route::get('fire', function () {
+     // this fires the event
+     event(new App\Events\NotificationEvent());
+     return "event fired";
+ });
 Route::get('/{any_path?}','MasterController@home')->where('any_path','(.*)');
+
+
+
 Route::post('/profilUrlUret','MasterController@profilPaylas');
 Route::post('/getProfileUrl','MasterController@getProfileUrl');
+Route::post('/postImageProfile','MasterController@postImageProfile');
+Route::post('/postImageIsletme','MasterController@postImageIsletme');
+Route::post('/ilan-kaydet','MasterController@ilanKaydet');
+
+Route::get('/FunctionName','MasterController@FunctionName');
 
 /*Route::get('/{loginModal?}/{prevUrl?}/{referrer?}',function()
 {

@@ -6,8 +6,8 @@
                     <div class="col-12">
                         <h4 class="text-green mb-4 text-center" style="display:block">Bilgileri Gir Ve İlan Yayınla</h4>
                             <button class="btn morButton" ng-click="tamamla()" style="display:block;margin:0 auto;margin-bottom: 5px;">Tamamla</button>
-                            <strong class="text-center" ng-show="!formIsValid.form1 || !formIsValid.form2 || !formIsValid.form3" style="color:red;display: block;margin-bottom: 5px;">Gerekli Alanları Doldurunuz !</strong>
-                    
+                            <strong class="text-center" ng-show="(!formIsValid.form1 || !formIsValid.form2 || !formIsValid.form3 || !formIsValid.form4) && formIsValid.yeni" style="color:red;display: block;margin-bottom: 5px;">Gerekli Alanları Doldurunuz !</strong>
+
                        </div>
                     <div class="col-10 mx-auto">
                         <div class="accordion" id="accordionExample">
@@ -19,19 +19,19 @@
                                 </button>
                               </h5>
                                 </div>
-    
-                                <div id="collapseOne" class="collapse show fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+                                <div id="collapseOne" class="collapse  fade" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <sehir page='kuaforFormDoldur'></sehir>
                                     <div class="form-group">
-                                        <label>İşletmenin Tam Adresi</label>
-                                           <textarea class="form-control" ng-model="tamAdres" name="" id="tamAdres" cols="5" rows="5"></textarea>
-                                    </div>                                  
-                                    
+                                        <label>İşletmenin Tam Adresi <label class="error" ng-if="tamAdresValid">En Az 20 Karakter Giriniz</label></label>
+                                           <textarea minlength="20" class="form-control" ng-model="tamAdres" name="" id="tamAdres" cols="5" rows="5"></textarea>
+                                    </div>
+
                                  </div>
                                 </div>
                             </div>
-                          
+                          <br>
                             <div class="card">
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
@@ -43,7 +43,7 @@
                                 <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>Erkek / Bayan Seçimi </label>
+                                            <label>Erkek / Bayan Seçimi <label class="error" ng-if="genderValid">En Az Bir Tane Seçiniz</label> </label>
                                                 <div
                                                 isteven-multi-select
                                                 input-model="genderInput"
@@ -51,18 +51,21 @@
                                                 button-label="name"
                                                 item-label="name"
                                                 tick-property="ticked"
+                                                selection-mode="single"
                                             >
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>İşletme Adı</label>
-                                            
+                                            <label>İşletme Adı <label class="error" ng-if="isletmeAdiValid"> Alanı Doldurunuz</label></label>
+
                                              <input type="text" id="isletmeAdi" ng-model="isletmeAdi" class="form-control">
-                                            
+
                                         </div>
-                                       
+
                                             <div class="form-group" ng-init="diger=false">
-                                                <label>İşletmedeki Toplam Müşteri Kapasitesi</label>
+                                                <label>İşletmedeki Toplam Müşteri Kapasitesi
+                                                    <label class="error" ng-if="kapasiteValid"> Alanı Doldurunuz</label>
+                                                </label>
                                                 <select class="form-control" id="kapasite" ng-change="kapasiteDegisti()" ng-model="kapasite">
                                                     <option value="" disabled>Seçiniz</option>
                                                     <option value="1">1</option>
@@ -73,25 +76,26 @@
                                                     <option value="6">6</option>
                                                     <option value="0">Diğer</option>
                                                   </select>
-                                                  
 
-                                            </div>
-                                            <div class="form-group">                                               
-                                                  
-                                                  <input type="number" id="kapasiteDiger" style="display: inline-block;width: 90%;" min="1" max="100" ng-model="kapasiteDiger" ng-show="diger" class="form-control">
-                                                  <button type="button" ng-show="diger" ng-click="diger=false;kapasite=''" style="display: inline-block;" class="btn btn-xs btn-secondary">Gizle</button>
-                                
+
                                             </div>
                                             <div class="form-group">
-                                                <label>İşletme Telefonu </label>
-                                                <input phone-input type="text" id="telefon" ng-model="telefon" class="form-control">
-                                               
+                                                <label ng-if="digerValid" class="error"> Alanı Doldurunuz</label>
+                                                  <input type="number" id="kapasiteDiger" style="display: inline-block;width: 90%;" min="1" max="100" ng-model="kapasiteDiger" ng-show="diger" class="form-control">
+                                                  <button type="button" ng-if="diger" ng-click="diger=false;kapasite=''" style="display: inline-block;" class="btn btn-xs btn-secondary">Gizle</button>
 
-                                                </div>
-                                            
+                                            </div>
+                                            <div class="form-group">
+                                                <label>İşletme Telefonu  <label class="error" ng-if="telValid"> Alanı Doldurunuz</label></label>
+                                                <input phone-input type="text" id="telefon" ng-model="telefon" class="form-control">
+
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                                <br>
                             </div>
                             <div class="card">
                                 <div class="card-header" id="headingThree">
@@ -104,7 +108,10 @@
                                 <div id="collapseThree" class="collapse fade" aria-labelledby="headingThree" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>İşletme Hizmetleriniz Neler ?</label>
+                                            <label>İşletme Hizmetleriniz Neler ?
+                                                <label class="error" ng-if="hizmetValid"> Alanı Doldurunuz</label>
+
+                                            </label>
                                                 <div
                                                 isteven-multi-select
                                                 input-model="hizmetInput"
@@ -119,6 +126,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <div class="card">
                                 <div class="card-header" id="headingFour">
                                     <h5 class="mb-0">
@@ -162,6 +170,7 @@
                                 <hr>
                             -->
                             <a ng-click="allCheck()">Hepsini İşaretle / Kaldır</a>
+                            <label class="error" ng-if="totalValid"> Alanı Doldurunuz</label>
 
                             <div class="form-group">
                                     <table class="table table-bordered">
@@ -170,7 +179,7 @@
                                             <th></th>
                                             <th>
                                                Pazartesi
-                                                 
+
                                             </th>
                                             <th>Salı</th>
                                             <th>Çarşamba</th>
@@ -188,7 +197,7 @@
                                                     <input type="checkbox"  ng-click="sec('Pazartesi',i.name,$event,id)"  ng-model="ischecked" checked="checked">
                                                     <span class="checkmark"></span>
                                                 </label>
-                                             
+
                                              </td>
                                               <td class="sal" ng-init="id='sal'+ uniqID.new();">
                                                 <label class="checkbox-container">
@@ -196,7 +205,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                               </td>
-                                              <td class="car" ng-init="id='car'+ uniqID.new();">                                                  
+                                              <td class="car" ng-init="id='car'+ uniqID.new();">
                                                 <label class="checkbox-container">
                                                     <input type="checkbox"  ng-click="sec('Çarşamba',i.name,$event,id)"  ng-model="ischecked3" checked="checked">
                                                     <span class="checkmark"></span>
@@ -227,41 +236,45 @@
                                                 </label>
                                               </td>
                                           </tr>
-                                         
+
                                         </tbody>
                                       </table>
-                                  
-                                </div>   
+
+                                </div>
                             </div>
                             </div>
                         </div>
+                        <br>
                         <div class="card">
                             <div class="card-header" id="headingFive">
                                 <h5 class="mb-0">
                             <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
-                                <i class="fa fa-angle-right mr-3"></i>  Fiyalandırma
+                                <i class="fa fa-angle-right mr-3"></i>  Fiyatlandırma
                             </button>
                           </h5>
                             </div>
 
-                            <div id="collapseFive" class="collapse show fade" aria-labelledby="headingFive" data-parent="#accordionExample">
+                            <div id="collapseFive" class="collapse  fade" aria-labelledby="headingFive" data-parent="#accordionExample">
                                 <div class="card-body">
 
                                 <div class="form-group">
-                                    <label>Hizmet Fiyatlandırma</label>
+                                    <label>Hizmet Fiyatlandırma
+                                        <label class="error" ng-if="fiyatlandirmaValid"> Alanı Doldurunuz</label>
+
+                                    </label>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
                                             <th>Seçilen Hizmetler</th>
                                             <th>
-                                               Fiyat (TL)                                                
+                                               Fiyat (TL)
                                             </th>
-                                          
+
                                         </tr>
                                         </thead>
                                         <tbody>
                                          <tr class="dataTr" ng-repeat="i in  hizmetOutput track by $index">
-                                          <td>{{i.name}}</td>
+                                          <td  class="dataTd">{{i.name}}</td>
                                           <td>
                                               <input type="number" style="height: 30px;" min="1" max="100000" placeholder="Fiyat" id="fiyat" class="form-control input">
                                             </td>
@@ -269,17 +282,16 @@
                                          <tr>
                                             <td colspan="12" style="background-color: #ddd;">
                                                 Toplam Hizmet Sayısı : {{hizmetOutput.length}}
-                                                <button class="btn" ng-click="fiyatlandirmaKaydet($event)" style="float:right;background-color: #a40cf0;color:white">Kaydet</button>
-                                            </td> 
+                                            </td>
                                          </tr>
                                         </tbody>
-                                      </table>           
-                                </div>                                  
-                                
+                                      </table>
+                                </div>
+
                              </div>
                             </div>
                         </div>
-                    </div>	
+                    </div>
                 </div>
             </section>
         </div>
@@ -291,7 +303,7 @@
 
     <div class="form-group">
    <label>Şifre</label>
-    <div class="inputIcon"> 
+    <div class="inputIcon">
     <i class="fas fa-key" style="left:320px"> </i>
     <input placeholder="Şifre" type="password" name="password" ng-model="sifre" class="form-control">
     </div>
@@ -315,7 +327,7 @@
       </form>
     -->
 
- 
+
 
 
 

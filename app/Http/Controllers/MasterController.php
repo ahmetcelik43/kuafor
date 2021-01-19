@@ -5,27 +5,45 @@ namespace App\Http\Controllers;
 //use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
-//use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Cookie;
 use App\User;
+use App\Ilanlar;
 //use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class MasterController extends Controller
 {
-    public function home()
+    public function welcome()
+    {
+        return view("welcome");
+
+    }
+    public function FunctionName()
+    {
+        return response()->json(["link"=>"OK" ],201);
+
+    }
+    public function home(Request $request)
     {
        // clearstatcache();
        
        //return \File::get(public_path() . '/newTemplate/master.html');
-       return view("master");
+       ///return response()->json($userID);
+       if(isset($_COOKIE["user"]))
+       {
+        $userID = json_decode($_COOKIE["user"],true)["id"];
+        $ilanlarByID = Ilanlar::where("userID",$userID)->get();
+        //return response()->json(["link"=>$ilanlarByID],201);
 
-
-
+        return view("master")->with("ilanlarByID",$ilanlarByID);
+ 
+       }
+       return view("master")->with("ilanlarByID","");;
     }
     public function getProfileUrl(Request $request)
     {
         $user = User::where("ad",$request->input("ad"))->take(1)->get();
-        return response()->json(["link"=> $user[0]->profilUrl ],201);
+        return response()->json(["link"=> isset($user[0]->profilUrl) ? $user[0]->profilUrl: '' ],201);
 
     }
     public function profilPaylas(Request $request)
@@ -89,6 +107,7 @@ class MasterController extends Controller
         try{
         $user = User::where($request->all())->get()->map(function ($item) {
           return [
+              "id"=>$item->id,
               "email"=>$item->email,
               "ad"=>$item->ad,
               "profileImage"=>$item->profilResmiUrl,
@@ -106,13 +125,45 @@ class MasterController extends Controller
       }
        catch (\Illuminate\Database\QueryException $exception)
       {
-         $errorInfo = $exception->errorInfo;
-         return response($errorInfo,500);     
+         return response($exception->errorInfo,500);     
      
      }
     }
+    public function sefyap ( $value ) {
+        $returnstr = "";
+        $turkcefrom = array("/Ğ/","/Ü/","/Ş/","/İ/","/Ö/","/Ç/","/ğ/","/ü/","/ş/","/ı/","/ö/","/ç/");
+        $turkceto   = array("G","U","S","I","O","C","g","u","s","i","o","c");
+        $fonktmp = preg_replace("/[^0-9a-zA-ZÄzçÇğĞıİöÖşŞüÜ]/"," ",$fonktmp);
+        // Türkçe harfleri ingilizceye çevir
+        $fonktmp = preg_replace($turkcefrom,$turkceto,$fonktmp);
+        // Birden fazla olan boşlukları tek boşluk yap
+        $fonktmp = preg_replace("/ +/"," ",$fonktmp);
+        // Boşukları - işaretine çevir
+        $fonktmp = preg_replace("/ /","-",$fonktmp);
+        // Tüm beyaz karekterleri sil
+        $fonktmp = preg_replace("/\s/","",$fonktmp);
+        // Karekterleri küçült
+        $fonktmp = strtolower($fonktmp);
+        // Başta ve sonda - işareti kaldıysa yoket
+        $fonktmp = preg_replace("/^-/","",$fonktmp);
+        $fonktmp = preg_replace("/-$/","",$fonktmp);
+        $returnstr = $tmpdate . $fonktmp;
+        return $returnstr;
+    }//sef url için fonksiyon
+     public function ilanKaydet(Request $request)
+     {
+        return response($request->all());     
 
-     
+         try {
+             $ilanlar = new Ilanlar();
+             $ilanlar->userID = $request->all()[1]["userID"];
+             $ilanlar->ilanBilgileri = $request->all()[0];
+             $ilanlar->save();
+         } catch (\Illuminate\Database\QueryException $exception) {
+            return response($exception->errorInfo,500);     
+
+         }
+     }
    
     public function Callback()
     {
@@ -163,5 +214,6 @@ class MasterController extends Controller
          //return redirect()->back();
 
     }
+   
 }
 ?>

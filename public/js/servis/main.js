@@ -1,10 +1,27 @@
 
-    var main = angular.module('main', ['angucomplete-alt','socialLogin','dropzone','isteven-multi-select','ui.router','ngCookies','ngCookies','angular-cache','pascalprecht.translate','angular-loading-bar','cfp.loadingBar','ngAnimate'], function($interpolateProvider) {
+    
+    
+    var main = angular.module('main', ['angucomplete-alt','complete','socialLogin','btford.socket-io','ngWebsocket','dropzone','isteven-multi-select','ui.router','ngCookies','angular-cache','pascalprecht.translate','angular-loading-bar','cfp.loadingBar','ngAnimate'], function($interpolateProvider) {
         //$interpolateProvider.startSymbol('<%');
         //$interpolateProvider.endSymbol('%>');
     })
     main.constant('baseUrl','http://localhost:8000');
-    main.factory('authFactory', function authFactory($http,$state,$location,$cookies,$stateParams) {
+    /*
+   main.service("validationForm",function()
+    {
+        var validationModel={};
+        validationModel.validation=function(data)
+        {
+          
+        }
+    })
+    */
+   main.service('socketService', function SocketService(socketFactory) {
+    return socketFactory({
+    ioSocket: io.connect("http://127.0.0.1:8001",{transports:['websocket']})
+    });    
+    });
+main.factory('authFactory', function authFactory($http,$state,$location,$cookies,$stateParams) {
         var userModel={};
         //let cache=$cacheFactory("sehirveilce");
 
@@ -141,10 +158,10 @@
         }
     });
     
-    main.run(function ($rootScope,$animate,$transitions,authFactory,$state,$stateParams,$http,$cookies,$location) {
+    main.run(function ($rootScope,$animate,$transitions,authFactory,$state,$stateParams,$http,$cookies,$location,$websocket) {
+
         $animate.enabled(true);
         $rootScope.$on('event:social-sign-in-success', function(event, userDetails){
-           console.log(12)
            $http({
 
             header:{
@@ -204,11 +221,27 @@
     });   
         $rootScope.lang = 'tr';
         
-    });
+       /* var ws = $websocket.$new('ws://localhost:8001');
 
+        ws.$on('$open', function () {
+              console.log("opened")
+              //ws.$emit("hello","ana");
+
+            })
+            ws.$on('hello', function () {
+alert()
+                //ws.$emit("hello","ana");
+  
+              })
+         */
+       
+
+});
    
-    main.config(function ($locationProvider,$httpProvider,$translateProvider,$stateProvider,cfpLoadingBarProvider,socialProvider,CacheFactoryProvider) {
-        
+    main.config(function ($locationProvider,$httpProvider,$translateProvider,$stateProvider,cfpLoadingBarProvider,socialProvider,CacheFactoryProvider,
+        ) {
+
+
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false,
@@ -263,8 +296,17 @@
             controller:'profil',
             protected:true
         };
-       
-      $stateProvider.state(master).state(home).state(ilanlar).state(googleCallback).state(kuaforFormDoldur).state(profil);  
+        var yayinlananilanlar = {
+            name: 'yayinlananilanlar',
+            parent: master,
+            url: '/yayinlanan-ilanlar',
+            templateUrl: '/newTemplate/yayinlananilanlar.html',
+            controller:'yayinlananilanlar',
+            protected:true
+        };
+      
+      $stateProvider.state(master).state(home).state(ilanlar).state(googleCallback).state(kuaforFormDoldur).state(profil)
+      .state(yayinlananilanlar); 
   
 
     cfpLoadingBarProvider.includeSpinner = false;
@@ -292,11 +334,35 @@
    
 main.controller('main' ,function($scope,$state,$translate,$rootScope,cfpLoadingBar,$timeout,authFactory)
 {
+
      cfpLoadingBar.start();
+     /*var ws= $websocket.$new('ws://localhost:8000');
+     ws.$on('$open', function () {
+        console.log(1234);
+        ws.$emit('hello', 'world'); // it sends the event 'hello' with data 'world'
+
+      })
+
+   
+
+        ws.$on("hello",function(m){
+            alert(m);
+        })
+    */
+   
+
+     //mySocket.init().emit("test","hasan");
+
+    //mySocket.sub();
+    //socketFactory().emit("test","merhaba");
      $scope.kapat= function()
      {
+//        mySocket.pub("merhaba");
+
         $('.bilgilendirme').css("display","none");
         $('.header').css("margin-top","-50px");
+        //mySocket.forward('test',$scope);
+
      }
 $scope.$on("$destroy",function() {    
     $( window ).off( "resize.Viewport" );

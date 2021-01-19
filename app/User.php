@@ -20,6 +20,10 @@ class User extends Model
     }
     protected $fillable = ['ad', 'email', 'password','rolID'];
 
+    public function ilan(){
+        return $this->hasMany(Ilanlar::class, 'userID','id');
+    }
+
     /*
     protected $casts = [
         'email_verified_at' => 'datetime',

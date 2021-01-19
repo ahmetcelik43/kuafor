@@ -14,9 +14,14 @@ return [
     */
 
     'paths' => [
-        public_path('newTemplate'),
+        public_path(''),
     ],
+/*
 
+'paths' => [
+    resource_path('/views'),
+],
+*/
     /*
     |--------------------------------------------------------------------------
     | Compiled View Path

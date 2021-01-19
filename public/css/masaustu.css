@@ -458,11 +458,12 @@ margin-right:auto;
 }
 .footer{
   background-color: #4d4d4d;
-  height:max-content;
 
   margin: 0 auto;
-  /* min-height: 50px; */
+   min-height: 50px;
   display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
   /* align-content: flex-end; */
 }
 

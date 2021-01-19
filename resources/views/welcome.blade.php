@@ -96,5 +96,16 @@
                 </div>
             </div>
         </div>
+        <script>
+            console.log(window.Echo)
+        window.Echo.channel('noti')
+        .listen('NotificationEvent', (e) => {
+            alert(`title: ${e.title} , message ${e.message}`)
+        });
+      </script>
+        <script  src="{{ asset('bootstrap.js') }}"></script>
+
+
+     
     </body>
 </html>

@@ -10,7 +10,7 @@ section{
 #accordion-style-1 textarea,input{
     font-weight: bold;
 }
-#accordion-style-1 ul 
+#accordion-style-1 ul
 {
     list-style: none;
 }
@@ -28,7 +28,6 @@ section{
     font-size: 16px;
     font-weight: bold;
     padding-left: 25px;
-     width: 80%; 
 }
 
 #accordion-style-1 .card-body {
@@ -61,7 +60,9 @@ section{
     border-top: 1px solid red;
     border-left: 1px solid red;
     border-right: 1px solid red;
-}
+    border-bottom: 1px solid red;
+
+  }
 .borderRedAll
 {
     border: 1px solid red !important;
@@ -79,7 +80,7 @@ section{
     text-align: center;
     margin-top:-3px;
   }
-  
+
   /* Hide the browser's default checkbox */
   .checkbox-container input {
     position: absolute;
@@ -88,7 +89,7 @@ section{
     height: 0;
     width: 0;
   }
-  
+
   /* Create a custom checkbox */
   .checkmark {
     position: absolute;
@@ -100,30 +101,30 @@ section{
     margin-bottom: 8px;
     margin-left: 6px;
   }
-  
-  
+
+
   /* On mouse-over, add a grey background color */
   .container:hover input ~ .checkmark {
     background-color: #ccc;
   }
-  
+
   /* When the checkbox is checked, add a blue background */
   .container input:checked ~ .checkmark {
     background-color: #2196F3;
   }
-  
+
   /* Create the checkmark/indicator (hidden when not checked) */
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   }
-  
+
   /* Show the checkmark when checked */
   .container input:checked ~ .checkmark:after {
     display: block;
   }
-  
+
   /* Style the checkmark/indicator */
   .container .checkmark:after {
     left: 9px;
@@ -143,12 +144,12 @@ section{
     width: 100%;
     border: 1px solid #ddd;
   }
-  
+
   th, td {
     text-align: left;
     padding: 8px;
   }
-  
+
   tr:nth-child(even){background-color: #f2f2f2}
 
   table th , td ,small{
@@ -173,7 +174,7 @@ section{
       width:40%;
       text-align:center;
       margin-right:5%;
-     padding-left: 5%; 
+     padding-left: 5%;
   }
   .right-genel
   {
@@ -188,6 +189,7 @@ section{
   {
     position: absolute;
     top:0;
+    z-index:12;
     width:100%;
     display:flex;
     justify-content: space-between;
@@ -197,4 +199,14 @@ section{
   }
   .left-mynavbar a:hover{
     color:red !important;
+  }
+  .dropzone
+  {
+    border:2px dashed black !important;
+  }
+	.card .btn-link{
+    width:100%;
+  }
+  .error{
+    color:red;
   }

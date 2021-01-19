@@ -33,6 +33,7 @@ $url = "http://".$_SERVER["SERVER_NAME"];
 
      <link rel="stylesheet" href="{{ URL::asset('bower_components/angular-loading-bar/src/loading-bar.css') }}"/>
      <script src="https://kit.fontawesome.com/d1fc3fdb09.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="{{ URL::asset('css/masaustu.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('css/angucomplete-alt.css') }}"/>
     <script src="{{ URL::asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -50,7 +51,22 @@ $url = "http://".$_SERVER["SERVER_NAME"];
 
     <script src="{{ URL::asset('bower_components/angular-cookies/angular-cookies.min.js') }}"></script>
     <script src="{{ URL::asset('js/angular/angucomplete-alt.min.js') }}"></script>
-    <script src="{{ URL::asset('bower_components/angular-animate/angular-animate.min.js') }}"></script>
+    <script src="{{ URL::asset('js/angular/a.js') }}"></script>
+    
+<!--    <script src="http://127.0.0.1:8000/socket.io/socket.io.min.js"></script> --> 
+
+   <!-- <script src="{{ URL::asset('bower_components/socket.io-client/dist/socket.io.min.js') }}"></script>
+    
+    <script src="{{ URL::asset('bower_components/angular-socket-io/socket.min.js') }}"></script>
+
+   -->
+ <!-- <script  type="module"  src="{{ URL::asset('socket.js') }}"></script>-->
+ 
+ <script src="{{ URL::asset('bower_components/ng-websocket/ng-websocket.js') }}"></script>
+ <script src="{{asset('socket.io/socket.io.min.js')}}"></script> 
+ <script src="{{ URL::asset('bower_components/angular-socket-io/socket.min.js') }}"></script>
+
+ <script src="{{ URL::asset('bower_components/angular-animate/angular-animate.min.js') }}"></script>
 
     <script src="{{ URL::asset('bower_components/angular-loading-bar/src/loading-bar.js') }}"></script>
     <script src="{{ URL::asset('bower_components/dropzone/dist/min/dropzone.min.js') }}"></script>
@@ -65,6 +81,8 @@ $url = "http://".$_SERVER["SERVER_NAME"];
     <script src="{{ URL::asset('components/loginmodal.js') }}"></script>
     <script src="{{ URL::asset('components/sidenav.js') }}"></script>
     <script src="{{ URL::asset('components/googleCallback.js') }}"></script>
+    <script src="{{ URL::asset('components/yayinlananilanlar.js') }}"></script>
+
     <script src="{{ URL::asset('components/formDoldur.js') }}"></script>
     <script src="{{ URL::asset('components/ilveilce.js') }}"></script>
     <script src="{{ URL::asset('components/altComponents/phoneInput.js') }}"></script>
@@ -77,6 +95,7 @@ $url = "http://".$_SERVER["SERVER_NAME"];
 
 <body ng-controller="main" id="main">
   <!--<div style="position: relative;width:100%;height:100%;">-->
+  <input type="hidden"  value="{{$ilanlarByID}}" name="ilanlarByID">
 <div id="loading-bar"></div>
     <!-- header-start -->
     <div id="overlay"></div>
@@ -179,6 +198,7 @@ $url = "http://".$_SERVER["SERVER_NAME"];
               <a class="dropdown-item">Rol : @{{getUser().rol}} </a>
              
                <a href="profil" class="dropdown-item">Profil<i style="float:right;font-size:20px" class="fas fa-address-card"></i></a>
+               <a href="yayinlanan-ilanlar" class="dropdown-item">Yayinlanan İlanlar</a>
               
                <a  ng-click="logOut()" class="dropdown-item">Çıkış
                  <i style="float:right;font-size:20px" class="fas fa-sign-out-alt"></i></a>
@@ -272,6 +292,8 @@ $url = "http://".$_SERVER["SERVER_NAME"];
 
       </div>
     </div>
+
+    <p id="noti"></p>
 <div ui-view>
   
 </div>
@@ -311,8 +333,15 @@ $url = "http://".$_SERVER["SERVER_NAME"];
 </li>  
 </ul>
 </div>
+<!--<script src="{{asset('socket.io/socket.io.min.js')}}"></script> -->
+<script>
+  const socket = io.connect("http://127.0.0.1:8001",{transports:['websocket']});
 
+  socket.emit("sendMessageToServer");
+  //Client'tan server'a mesaj gönderirken burada "sendMessageToServer" adında bir olay yaratılmaktadır. Server'da bu olayı karşılayacaktır.
+</script>
 <!--</div>-->
+
 
 </body>
 

@@ -4,10 +4,7 @@ main.component('loginModal', {
     controller: function($http,$translate, authFactory ,$scope, cfpLoadingBar , $cookies , $state,$stateParams,$timeout) {
       //console.log($stateParams.param);
        
-          let tabHeader = document.getElementsByClassName("tab-header")[0];
-          let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
-          let tabBody = document.getElementsByClassName("tab-body")[0];
-          let tabsPane = tabHeader.getElementsByTagName("div");
+        
           $scope.$on("$destroy",function() {
             $( window ).off( "resize.Viewport" );
          });
@@ -44,42 +41,46 @@ main.component('loginModal', {
          }, 2000);
         }
        
-     
-
+        let tabHeader = document.getElementsByClassName("tab-header")[0];
+        let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
+        let tabBody = document.getElementsByClassName("tab-body")[0];
+        let tabsPane = tabHeader.getElementsByTagName("div");
+        
 function manualRedirectToRegister()
-  {
-    tabHeader.getElementsByClassName("active")[0].classList.remove("active");
-    document.getElementById('registerHeaderModal').classList.add("active");
-    tabBody.getElementsByClassName("active")[0].classList.remove("active");
-    document.getElementById('registerModalBody').classList.add("active");
-    
-    tabIndicator.style.left = `calc(calc(100% / 2) * 1)`;
-  }
-  
-  function manualRedirectToLogin()
-  {
-    tabHeader.getElementsByClassName("active")[0].classList.remove("active");
-    document.getElementById('loginHeaderModal').classList.add("active");
-    tabBody.getElementsByClassName("active")[0].classList.remove("active");
-    document.getElementById('loginModalBody').classList.add("active");
-    
-    tabIndicator.style.left = `calc(calc(100% / 2) * 0)`;
-  }
-  $scope.girisRedirectModal=function()
-  {       
-      manualRedirectToRegister();
-  }
-  tabsPane[1].addEventListener("click",function(){
-    manualRedirectToRegister();
-  
-  });
-  tabsPane[0].addEventListener("click",function(){
-    manualRedirectToLogin();
-  
-  });   
-  $scope.manualRedirectToLogin=function()
-  {
-    manualRedirectToLogin();
-  } 
+{
+tabHeader.getElementsByClassName("active")[0].classList.remove("active");
+document.getElementById('registerHeaderModal').classList.add("active");
+tabBody.getElementsByClassName("active")[0].classList.remove("active");
+document.getElementById('registerModalBody').classList.add("active");
+
+tabIndicator.style.left = `calc(calc(100% / 2) * 1)`;
+}
+
+function manualRedirectToLogin()
+{
+tabHeader.getElementsByClassName("active")[0].classList.remove("active");
+document.getElementById('loginHeaderModal').classList.add("active");
+tabBody.getElementsByClassName("active")[0].classList.remove("active");
+document.getElementById('loginModalBody').classList.add("active");
+
+tabIndicator.style.left = `calc(calc(100% / 2) * 0)`;
+}
+$scope.girisRedirectModal=function()
+{       
+  manualRedirectToRegister();
+}
+tabsPane[1].addEventListener("click",function(){
+manualRedirectToRegister();
+
+});
+tabsPane[0].addEventListener("click",function(){
+manualRedirectToLogin();
+
+});   
+$scope.manualRedirectToLogin=function()
+{
+manualRedirectToLogin();
+} 
+
     }
   });

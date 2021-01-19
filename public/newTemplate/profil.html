@@ -28,13 +28,14 @@
                                     <strong style="display: block;margin-top: 5px;">{{getUser().ad}}</strong>
                                      <strong style="display: block;margin-top: 5px;">{{getUser().rol}}</strong>
                                      <strong style="display: block;margin-top: 5px;">{{getUser().email}}</strong>
-
                                 </div>  
                             </div>                                
                                 <div class="right-genel">
+                                    <a  style="display: block ">Paylaşılan İlan Sayısı : {{ilanSayisi}}</a>
+
                                     <a ng-click="linkUret()" style="display: block ">Profil Linki Üret</a>
                                     <a id="copy"  data-clipboard-action="copy" data-clipboard-target="#url" style="display: block;"><i  class="far fa-copy"></i></a> 
-                                    <small id="url">{{profilUrl}}</small>
+                                    <a target="blank" ng-href="{{profilUrl}}" id="url"><small>{{profilUrl}}</small></a>
                                 </div>
                              </div>
                             </div>
@@ -43,11 +44,11 @@
                         <div class="card">
                                     <div class="card-header" id="headingOne">
                                         <h5 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="btn btn-link btn-block text-left" style="width: 80%;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         <i class="fa fa-angle-right mr-3"></i> Profil Resmi Değiştir 
                                     </button>
                                     <button ng-class="isAnimateButton ? 'animate__animated animate__repeat-2 animate__heartBeat' : ''" style="float: right;display: inline;"
-                                     ng-click="yukle()" ng-model="file" ng-disabled="!isAddedFile" class="btn morButton">Yükle</button>
+                                     ng-click="yukle('profile')" ng-model="file" ng-disabled="!isAddedFile" class="btn morButton">Yükle</button>
 
                                   </h5>
                                     </div>
@@ -56,7 +57,7 @@
                                         <div class="card-body">
                                         <div class="form-group">
                                             <label for="">Profil Resimi  <small class="small">  ({{getUser().profileImage==null ? 'Şu An Profil Resminiz Yok': ''}}) </small></label>
-                                            <form action="/file-upload"  class="dropzone" id="my-awesome-dropzone" dropzone="dropzoneConfig">
+                                            <form  class="dropzone" id="profile-dropzone" dropzone="dropzoneConfigProfile">
                                             </form>
                                         </div>                                  
                                         
@@ -67,11 +68,11 @@
                             <div class="card">
                                 <div class="card-header" id="headingTwo">
                                     <h5 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link btn-block text-left" style="width: 80%;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <i class="fa fa-angle-right mr-3"></i> İşletme Resimlerini Buradan Yükleyebilirsin 
                                 </button>
-                                <button ng-class="isAnimateButton ? 'animate__animated animate__repeat-2 animate__heartBeat' : ''" style="float: right;display: inline;"
-                                 ng-click="yukle()" ng-model="file" ng-disabled="!isAddedFile" class="btn morButton">Yükle</button>
+                                <button ng-class="isAnimateButton2 ? 'animate__animated animate__repeat-2 animate__heartBeat' : ''" style="float: right;display: inline;"
+                                 ng-click="yukle('isletme')" ng-model="file" ng-disabled="!isAddedFileIsletme" class="btn morButton">Yükle</button>
 
                               </h5>
                                 </div>
@@ -80,13 +81,15 @@
                                     <div class="card-body">
                                     <div class="form-group">
                                         <label for="">İşletme Resimleri</label>
-                                        <form action="/file-upload"  class="dropzone" id="my-awesome-dropzone" dropzone="dropzoneConfig">
+                                        <form class="dropzone" id="my-awesome-dropzone2" dropzone="dropzoneConfigIsletme">
                                         </form>
                                     </div>                                  
                                     
                                  </div>
                                 </div>
                         </div>
+                        
+                     
                     </div>    
                     </div>
                 

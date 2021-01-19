@@ -1,7 +1,58 @@
+<div   class="profil form-group" ng-init="data=$ctrl.model;">
+  <input type="hidden" ng-value="data">
+  <label>Şehir  </label>
+
+    
+    
+      <complete id="ilDesktop"
+      maxlength="50"
+      pause="100"
+      initial-value="il"
+      selected-object="secIlDesktop"
+      local-data="illerDesktop"
+      search-fields="il"
+      title-field="il"
+      imagefield="image"
+      minlength="0" 
+      data="data"
+      match-class="highlight"                  
+      input-name="ilDesktop"        
+      input-class="form-control input"
+      text-no-results="İl Bulunamadı !"
+      >
+      </complete>
+
+</div>
+
+</div>
+
+<div  class="profil form-group" ng-init="data2=$ctrl.model2;">
+  <input type="hidden" ng-value="dataIlce">
+
+    <label>İlçe (Merkez ise boş bırakınız)</label>
+
+        
+   
+   <complete 
+   maxlength="50"
+   pause="100"
+   initial-value="ilce"
+   selected-object="secIlceDesktop"
+   local-data="ilcelerDesktop"
+   search-fields="ilce"
+   title-field="ilce"
+   minlength="0"     
+   data="data2"  
+   input-name="ilceDesktop"
+   input-class="form-control input"                                         
+   text-no-results="İlçe Bulunamadı !">
+   </complete>
+
+  </div>
 
 
   <div   class="form-doldur form-group" >
-    <label>Şehir *</label>
+    <label>Şehir * <label class="error" ng-if="isValidSehir">Alanı Doldurunuz</label> </label>
 
       
       
@@ -24,7 +75,7 @@
 </div>
 
   <div  class="form-doldur form-group">
-      <label>İlçe</label>
+      <label>İlçe (Merkez ise boş bırakınız) <label  class="error" ng-if="isValidIlce">Alanı Doldurunuz</label></label>
 
           
      

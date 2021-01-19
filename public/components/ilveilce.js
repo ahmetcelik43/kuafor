@@ -2,25 +2,39 @@
 main.component('sehir', {
     templateUrl:  '/newTemplate/ilveilce.html',    
     bindings: {
-        page: '@'
+        page: '@',
+        model:'=',
+        model2:'='
     }, 
     controller: function($attrs,Data, $scope,$filter) {
         $scope.$on("$destroy",function() {    
             $( window ).off( "resize.Viewport" );
          });
-     if($attrs.page == "home" ){ $('.form-doldur').css('display','none');$('.sehir2 , .ilce2').css('display','inline-block'); }
-      if($attrs.page == 'kuaforFormDoldur' ) { $('.form-doldur').css('display','block');$('.sehir2 , .ilce2').css('display','none'); }
-    var allData=[];
+     if($attrs.page == "home" ){ $('.form-doldur').css('display','none');
+     $('.sehir2 , .ilce2').css('display','inline-block'); 
+     $('.profil').css("display","none");
+    }
+      if($attrs.page == 'kuaforFormDoldur' ) { $('.form-doldur').css('display','block');
+      $('.sehir2 , .ilce2').css('display','none');
+      $('.profil').css("display","none");
+    }
+      if($attrs.page == 'profil' ) { $('.profil').css('display','block');$('.sehir2 , .ilce2').css('display','none');
+      $('.form-doldur').css('display','none');
+     }
+
+      var allData=[];
     $scope.illerDesktop=[];
     $scope.ilcelerDesktop=[];
+ 
+    console.log(this)
     //$scope.appUrl = angular.element('#main').scope().appUrl;
-    
     $scope.secIlDesktop = function (il) {
         
         if (!angular.isUndefined(il)) 
-            $scope.il = il.originalObject;
+        $scope.il  = il.originalObject;
         
     }
+  
     $scope.secIlceDesktop = function (ilce) {
         
         if (!angular.isUndefined(ilce)) 
@@ -43,12 +57,10 @@ main.component('sehir', {
 
 
     }
+ 
    $scope.$watch('il',function(Value){
     
        if(Value){
-
-       $('.inputIcon > .fa-remove').fadeIn('fast');
-       $('.inputIcon > .fa-search').fadeOut('fast');
 
        var filter = $filter('filter')($scope.illerDesktop, { "il": Value.il  }, true);  
     if(filter.length > 0)
@@ -60,27 +72,13 @@ main.component('sehir', {
       });
        }
     }
-    else if(!Value){
-        $('.inputIcon > .fa-remove').fadeOut('fast');
-        $('.inputIcon > .fa-search').fadeIn('fast');
-    }   
+   
     }); 
     
-    $scope.inputChanged=function()
-    {
-        
-        if(this.searchStr){
-            $('.inputIcon > .fa-remove').fadeIn('fast');
-            $('.inputIcon > .fa-search').fadeOut('fast');
-     
-         }
-         else{
-             $('.inputIcon > .fa-remove').fadeOut('fast');
-             $('.inputIcon > .fa-search').fadeIn('fast');
-         }        
-    }
+   
     
     $scope.sehirDesktopInit();
+    /*
     $scope.inputTemizle=function(param)
     {
         switch (param) {
@@ -93,6 +91,6 @@ main.component('sehir', {
             default:
                 break;
         }
-    }    
+    }    */
     }
   });
